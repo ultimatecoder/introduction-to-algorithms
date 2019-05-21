@@ -1,6 +1,6 @@
 # Introduction to Algorithms
 
-![Introduction to Algorithm](assets/images/introduction_to_algorithm.jpg)
+![Introduction to Algorithm](assets/images/introduction_to_algorithms.jpg)
 
 
 ## Description
