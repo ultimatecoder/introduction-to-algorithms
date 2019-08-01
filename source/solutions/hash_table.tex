@@ -1,0 +1,99 @@
+\chapter{Hash Table}
+  \section{Direct address tables}
+    \subsection {}
+
+    Suppose that a dynamic set S is represented by a direct-address table T of
+    length m. Describe a procedure that finds the maximum element of S. What is
+    the worst-case performance of your procedure?
+
+      \subsubsection {Answer}
+
+      For finding a maximum element, we have to start reading values of each slot
+      from "0" to "m-1" slot. If value of slot is null then it should be skipped.
+      If it is not null then read value of object stored in it.
+
+      Performance for worst-case should O(m) where "m" is number of possible
+      keys.
+
+    \subsection {}
+
+    A \textbf{bit vector} is simply an array of bits (0s and 1s). A bit vector
+    of length \textit{m} takes much less space than an array of \textit{m}
+    pointers. Describe how to use a bit vector to represent a dynamic set of
+    distinct elements with no satellite data. Dictionary operations should run
+    in \textit{O(1)} time.
+
+      \subsubsection {Answer}
+
+      We can represent dynamic set of distinct elements which is having no
+      satellite data similarly as we store satellite data. Each slot will have
+      two possible values. Value \textit{1} will present that given element is
+      present in set and value \textit{0} will indicate that a set is empty.
+
+      Below is a pseudocode code for each dictionary operations.
+
+      \textit{Dictionary-insert(T, x)}
+        \begin{verbatim}
+        return T[x.key] = 1
+        \end{verbatim}
+
+      \textit{Dictionary-delete(T, x)}
+        \begin{verbatim}
+        return T[x.key] = 0
+        \end{verbatim}
+
+      \textit{Dictionary-search(T, key)}
+        \begin{verbatim}
+        return T[key] == 1
+        \end{verbatim}
+
+      Above operations takes O(1) run-time.
+
+    \subsection {}
+
+    Suggest how to implement a direct-address table in which the keys of stored
+    elements do not need to be distinct and elements can have satellite data.
+    All three dictionary operations (Insert, Delete and Search) should run in
+    O(1) time. (Don't forget that DELETE takes as an argument a pointer to an
+    object to be deleted, not a key.)
+
+      \subsubsection {Answer}
+
+      When keys are not always distinct, we can store elements having common
+      key as a Doubly linked list and chain them together. We can still achieve
+      \textit{INSERT}, \textit{SEARCH} and \textit{DELETE} operations in O(1)
+      time.
+
+      Below is a pseudocode for this operations
+
+      \begin{verbatim}
+        INSERT(D, item)
+          if D[item.key] is null
+            D[item.key] = DoublyLinkedList()
+          INSERD(D[item.key], item)
+
+        DELETE(D, item)
+          REMOVE(D[item.key], item)
+
+        SEARCH(D, key)
+          if D[key] != null
+            return D[key].head
+          else
+            return null
+      \end{verbatim}
+
+    \subsection {}
+
+    We wish to implement a dictionary by using direct addressing on a huge
+    array. At the start, the array entries may contain garbage, and
+    initializing the entire array is impractical because of its size. Describe
+    a scheme for implementing a direct-address dictionary on a huge array. Each
+    stored object should use \textit{O(1)} space; the operations
+    \textbf{SEARCH, INSERT} and \textbf{DELETE} should take \textit{O(1)} time
+    each; and initializing the data structure should take \textit{O(1)} time.
+    (Hint: Use an additional array, treated somewhat like a stack whose size is
+    the number of keys actually stored in the dictionary, to help determine
+    whether a given entry in the huge array is valid or not.)
+
+      \subsubsection {Answer}
+      TODO: Try to solve this question.
