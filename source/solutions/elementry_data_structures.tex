@@ -314,3 +314,247 @@
 
         A run-time of \textit{PUSH} operation can be achieved in O(1).
         \textit{POP} operation will take O(N) to remove an element from top.
+
+  \section{Linked Lists}
+
+    \subsection{}
+
+    Can you implement the dynamic-set operation \textit{INSERT} on a singly
+    linked list in O(1) time? How about \textit{DELETE}?
+
+    \subsubsection{Answer}
+
+    Yes, we can achieve dynamic-set operation \textit{INSERT} on a singly
+    linked list in O(1) by inserting new element at a position of head. Below
+    is a pseudocode for \textit{INSERT} operation which takes O(1) time to
+    insert a new element into a dynamic set.
+
+    \begin{verbatim}
+      INSERT(L, element)
+        if L.head is not null
+          element.next = L.head
+          L.head = element
+        else
+          L.head = element
+          L.head.next = null
+    \end{verbatim}
+
+    There is any possibility to achieve dynamic-set operation \textit{DELETE}
+    in O(1) run-time.
+
+    \subsection{}
+
+    Implement a stack using a singly linked list L. The operations
+    \textit{PUSH} and \textit{POP} should still take O(1) time.
+
+    \subsubsection{Answer}
+
+    To implement a stack data structure on singly linked list, we have to
+    insert and delete elements from a head of a list. We can achieve insert and
+    delete operations on stack data structure in O(1).
+
+    Below is a pseudocode for \textit{PUSH} and \textit{POP} operations.
+
+    \begin{verbatim}
+      PUSH(S, item)
+        if S.head is not null
+          item.next = S.head
+        S.head = item
+
+      POP(S)
+        item = S.head
+        if item is null
+          error ``Underflow``
+        S.head = S.head.next
+        return item
+    \end{verbatim}
+
+    \subsection{}
+
+    Implement a queue by singly linked list L. The operations \textit{ENQUEUE}
+    and \textit{DEQUEUE} should still take O(1) time.
+
+    \subsubsection{Answer}
+
+    To implement a queue data structure using singly linked list, we have to
+    maintain two references of linked list node. One pointer reference at a
+    head of a queue and another pointer reference at a tail of a queue. New
+    element is enqued at a head and old element is removed from a tail of a
+    queue.
+
+    Below is a pseudocode for \textit{ENQUEUE} and \textit{DEQUEUE} operations.
+
+    \begin{verbatim}
+      ENQUEUE(Q, item)
+        if Q.tail is not null
+         Q.tail.next = item
+        Q.tail = item
+        if Q.head is null
+          Q.head = item
+
+      DEQUEUE(Q)
+        if Q.head is null
+          error ``Underflow``
+        item = Q.head
+        if Q.tail == Q.head
+          Q.tail = null
+        Q.head = Q.head.next
+    \end{verbatim}
+
+    Run-time of both operations is O(1).
+
+    \subsection{}
+
+    As written, each loop iteration in the \textit{LIST-SEARCH'} procedure
+    requires two tests: one for $x != L.nil$ and one for $x.key != k$. Show how
+    to eliminate the test for $x != L.nil$ in each iteration.
+
+    \subsubsection{Answer}
+
+    For eliminating a test for $x != L.nil$ in each iteration we simply have to
+    add expected key at $L.nil$ so the while loop at least terminates by
+    finding one value of key in worst case scenario. Below is a code for
+    updated \textit{LIST-SEARCH'} operation.
+
+    \begin{verbatim}
+      LIST-SEARCH(L, key)
+        element = L.nil.next
+        L.nil.key = key
+        while element.key != key
+          element = element.next
+        L.nil.key = null
+        return element
+    \end{verbatim}
+
+
+    \subsection{}
+
+    Implement the dictionary operations \textit{INSERT}, \textit{DELETE}, and
+    \textit{SEARCH} using singly linked, circular lists. What are the running
+    times of your procedures?
+
+    \subsubsection{Answer}
+    \begin{verbatim}
+    INSERT(L, element)
+      element.next = L.head
+      L.head = element
+      if L.tail != null
+        L.tail.next = L.head
+      else
+        L.tail = L.head
+
+    DELETE(L, element)
+      if element == L.head
+        L.head = element.next
+        L.tail.next = L.head
+      else element == L.tail
+        previous_element = L.head
+        while previous_element.next != L.tail
+          L.tail = previous_element
+          L.tail.next = L.head
+      else
+        previous_element = L.head
+        while previous_element.next != element and previous_element != L.tail
+          previous_element = previous_element.next
+        previous_element.next = element.next
+
+    SEARCH(L, key)
+      element = L.head
+      while element.key != key and element != L.tail
+        element = element.next
+      if element.key == key
+        return element
+      else
+        return null
+    \end{verbatim}
+
+    \subsection{}
+
+    TODO: Add appropriate mathematical symbol for union operation.
+
+    The dynamic-set operation \textit{UNION} takes two disjoint sets S1 and S2
+    as input, and it returns a set S = S1 U S2 consisting of all the elements
+    of S1 and S2. The sets S1 and S2 are usually destroyed by the operation.
+    Show how to support \textit{UNION} in O(1) time using a suitable list data
+    structure.
+
+    \subsubsection{Answer}
+
+    We can use circular doubly linked list data structure for storing elements
+    of a set. Choosing circular doubly linked list we will be able to get a
+    reference of first node which is called head and a last node of a linked
+    list in O(1).
+
+    For achieving an \textit{UNION} operation in O(1) run-time, we have to
+    update a next value of last node of S1 with a head node of S2 and point
+    last node of S2 to a head node of S1. Because we have reference of first
+    and last node, we can achieve this operation in O(1) time.
+
+    \subsection{}
+
+    Given a O(n)-time non recursive procedure that reverses a singly linked list
+    of n elements. The procedure should use no more than constant storage
+    beyond that needed for the list itself.
+
+    \subsubsection{Answer}
+
+    There are two ways to reverse a singly linked list. Both will take O(n) run
+    time.
+
+    Below is a first approach in which I am reversing a singly linked list
+    using Stack data structure.
+
+    \begin{verbatim}
+      REVERSE(L)
+        S = Stack()
+        element = L.head
+        while element.next != null
+          PUSH(S, element)
+          element = element.next
+        RL = LinkedList()
+        last_element = null
+        while S.length != 0
+          element = POP(S)
+          INSERT(RL, element)
+        return RL
+    \end{verbatim}
+
+    Blow is a second approach in which I am reversing a singly linked list
+    operations without using any data structure.
+
+    \begin{verbatim}
+    POP(L)
+      if L.head == null
+        error ``Underflow``
+      element = L.head
+      L.head = L.head.next
+      return element
+
+    INSERT(L, element)
+      if L.head == null
+        L.head = item
+      element.next = L.head
+      L.head = element
+
+    REVERSE(L)
+      RL = SinglyList()
+      while L.length != 0
+        element = POP(L)
+        INSERT(RL, element)
+      return RL
+    \end{verbatim}
+
+    \subsection{}
+
+    Explain how to implement doubly linked lists using only one pointer value
+    x.np per item instead of the usual two (next and prev). Assume that all
+    pointer values can be interpreted as k-bit integers, and define x.np to be
+    x.np = x.next XOR x.prev, the k-bit ``exclusive-or`` of x.next and x.prev.
+    (The value NUL is represented by 0.) Be sure to describe what information
+    you need to access the head of the list. Show how to implement the
+    \textit{SEARCH}, \textit{INSERT}, and \textit{DELETE} operations on such a
+    list. Also show how to reverse such a list in O(1) time.
+
+    \subsubsection{Answer}
+
+    TODO: Learn how XOR on bit works.
