@@ -97,3 +97,123 @@
 
       \subsubsection {Answer}
       TODO: Try to solve this question.
+
+  \section{Hash Tables}
+
+    \subsection{}
+
+    Suppose we use a hash function \textit{h} to hash \textit{n} distinct keys
+    into an array \textit{T} of length \textit{m}. Assuming simple uniform
+    hashing, what is the expected number of collisions? More precisely, what is
+    the expected cardinality of {{k, l} : k != l and h(k) = h(l)} ?
+
+    \subsubsection{Answer}
+
+    TODO: I am sure that expected number of collisions are n / m. Find out what
+    is expected cardinality.
+
+    \subsection{}
+
+    Demonstrate what happens when we insert the keys 5, 28, 19, 15, 20, 33, 12,
+    17, 10 into a hash table with collisions resolved by chaining. Let the
+    table have 9 slots, and let the hash function be h(k) = k mod 9.
+
+    \subsubsection(Answer}
+    Let's assume \textit{T} is an array storage in which keys of hash table are
+    stored.  Blank value at slot T[index] indicates that there are no keys
+    present.
+
+    \begin{verbatim}
+      Hash(key)
+        return key mod 9
+
+      Insert(T, key)
+        index = Hash(key)
+        if T[index] == null
+          T[index] = LinkedList()
+        Insert(T[index], key)
+
+      Initial state of Hash table storage
+
+      T = [null, null, null, null, null, null, null, null, null]
+
+      Insert(T, key=5)
+
+      T = [null, null, null, null, null, (5), null, null, null]
+
+      Insert(T, key=28)
+
+      T = [null, (28), null, null, null, (5), null, null, null]
+
+      Insert(T, key=19)
+
+      T = [null, (28) -> (19), null, null, null, (5), null, null, null]
+
+      Insert(T, key=15)
+
+      T = [null, (28) -> (19), null, null, null, (5), (15), null, null]
+
+      Insert(T, key=20)
+
+      T = [null, (28), (20), null, null, (5), (15), null, null]
+
+      Insert(T, key=33)
+
+      T = [null, (28), (20), null, null, (5), (15) -> (33), null, null]
+
+      Insert(T, key=12)
+
+      T = [null, (28) -> (10), (20), (12), null, (5), (15) -> (33), (17), null]
+    \end{verbatim}
+
+    \subsection{}
+
+    Professor Marley hypothesizes that he can obtain substantial performance
+    gains by modifying the chaining scheme to keep each list in sorted order.
+    How does the professor's modification affect the running time for
+    successful searches, unsuccessful searches, insertions and deletions?
+
+    \subsubsection{Answer}
+      Successful Searches will take O(N) time in worst case. Unsuccessful
+      searches will take O(N) time in worst case. Insertions will take O(N)
+      time to find appropriate element position. Deletion will take O(1).
+
+      TODO: Add conclusive statements.
+
+   \subsection{}
+
+   Suggest how to allocate and deallocate storage for elements within the hash
+   table itself by linking all unused slots into a free list. Assume that one
+   slot can store a flag and either one element plus a pointer or two pointers.
+   All dictionary and free-list operations should run in O(1) expected time.
+   Does the free list need to be doubly linked, or does a singly linked free
+   list suffice?
+
+   \subsubsection{Answer}
+
+   TODO: Understand the definition once again
+
+   \subsection{}
+
+   Suppose that we are storing a set of \textit{n} keys into a hash table of
+   size \itexit{m}. Show that if the keys are drawn from a universe \textit{U}
+   with |U| > nm, then \textit{U} has a subset of size n consisting of keys
+   that all hash to the same slot, so that the worst-case searching time for
+   hashing with chaining is O(n).
+
+   \subsubsection{Answer}
+
+   TODO: Skipping for now.
+
+   \subsection{}
+
+   Suppose we have stored n keys in a hash table of size m, with collisions
+   resolved by chaining, and that we know the length of each chain, including
+   the length L of the longest chain. Describe a procedure that selects a key
+   uniformly at random from amen the keys in the hash table and returns it in
+   expected time O(L. (1 + 1 / a)).
+
+   \subsubsection{Answer}
+
+   TODO: Skipping this for this time. Find appropriate LaTeX symbols for alpha
+   and replace it.
